@@ -1,16 +1,17 @@
 class Solution {
 public:
     int numberOfChild(int n, int k) {
-        n--;  // Since n is the number of places visited per round
-        int noofrounds = k / n;  // Number of complete rounds
-        int remainder = k % n;   // Remaining places after complete rounds
-        
-        if (noofrounds % 2 == 0) {
-            // Even round: go to the right
-            return remainder;
-        } else {
-            // Odd round: go to the left
-            return n - remainder;
+        int direction = 1; // 1 means right, -1 means left
+        int position = 0;  // Starting position
+
+        for (int steps = 0; steps < k; ++steps) {
+            position += direction;
+
+            // Change direction if at either end
+            if (position == 0 || position == n - 1) {
+                direction = -direction;
+            }
         }
+        return position;
     }
 };
