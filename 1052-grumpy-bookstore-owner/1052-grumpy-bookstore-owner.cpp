@@ -6,7 +6,9 @@ public:
 
         // Calculate initial unsatisfied customers in the first 'minutes' window
         for (int i = 0; i < minutes; i++) {
-            unsat += customers[i] * grumpy[i];
+            if (grumpy[i] == 1) {
+                unsat += customers[i];
+            }
         }
 
         int maxUnsat = unsat;
@@ -16,9 +18,12 @@ public:
         int j = minutes;
 
         while (j < n) {
-            unsat += customers[j] * grumpy[j];   // Include current element
-            unsat -= customers[i] * grumpy[i];   // Remove element going out of window
-            
+            if (grumpy[j] == 1) {
+                unsat += customers[j];     // Include current element
+            }
+            if (grumpy[i] == 1) {
+                unsat -= customers[i];    // Remove element going out of window
+            }
             maxUnsat = max(maxUnsat, unsat);     // Update maxUnsat
             i++;
             j++;
@@ -28,10 +33,15 @@ public:
 
         // Calculate total satisfied customers
         for (int i = 0; i < n; i++) {
-            totalCustomers += customers[i] * (1 - grumpy[i]);
+            if (grumpy[i] == 0) {
+                totalCustomers += customers[i];
+            }
         }
 
         return totalCustomers;
     }
 };
+// sliding window identify karte hai 
+// 1. fixed size honaa chaiyaa -> minutes = 3;
+// 2. subarray type hint kar raha ho -> consecutive
 
