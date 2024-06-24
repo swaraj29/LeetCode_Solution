@@ -1,19 +1,19 @@
 class Solution {
 public:
     bool isPrefixString(string s, vector<string>& words) {
-        
         string p = "";
-        bool flag = true;
-
-        for(auto &i : words){
-            p += i;
-        }
-        for(int i = 0; i < s.size(); i++){
-            if(s[i] != p[i]){
-                flag = false;
+        for(auto &word : words){
+            p += word;
+            // Check if the current prefix matches s
+            if (p == s) {
+                return true;
+            }
+            // If the prefix becomes longer than s, s cannot be a prefix
+            if (p.size() > s.size()) {
+                return false;
             }
         }
-
-        return flag;
+        // If the loop completes and p is not equal to s, return false
+        return false;
     }
 };
