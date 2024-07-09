@@ -2,14 +2,14 @@ class Solution {
 public:
     double averageWaitingTime(vector<vector<int>>& customers) {
         
-        vector<long long> aw;
-        long long r = customers.size();
-        long long s = 0;
+        vector<int> aw;
+        int r = customers.size();
+        int s = 0;
 
         for (int i = 0; i < r; i++) {
-            long long a = customers[i][0];
-            long long t = customers[i][1];
-            long long f, w;
+            int a = customers[i][0];
+            int t = customers[i][1];
+            int f, w;
             
             if (a > s) {
                 f = a + t;
