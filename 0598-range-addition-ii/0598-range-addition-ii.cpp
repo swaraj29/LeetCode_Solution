@@ -1,34 +1,22 @@
 class Solution {
 public:
     int maxCount(int m, int n, vector<vector<int>>& ops) {
-        vector<vector<int>>vec(m, vector<int>(n,0));
-
-        for(auto op: ops){
-            int a = op[0];
-            int b = op[1];
-
-            for(int i = 0; i < a; i++){
-                for(int j = 0; j < b; j++){
-                    vec[i][j]++;
-                }
-            }
+        // If no operations are given, the whole matrix is filled with the same number
+        if (ops.empty()) {
+            return m * n;
         }
-        int maxElement = 0;
-        for(int i = 0; i < m; i++){
-            for(int j = 0; j < n; j++){
-                maxElement = max(maxElement, vec[i][j]);
-            }
-        }
-        int count = 0;
-        for(int i = 0; i < m; i++){
-            for(int j = 0; j < n; j++){
-                if(maxElement == vec[i][j]){
-                    count ++;   
-                }
 
-            }
+        // Initialize minRow and minCol with m and n
+        int minRow = m;
+        int minCol = n;
+
+        // Find the minimum a and b values from the operations
+        for (const auto& op : ops) {
+            minRow = min(minRow, op[0]);
+            minCol = min(minCol, op[1]);
         }
-        return count;
-        
+
+        // The result is the area of the smallest rectangle that all operations overlap
+        return minRow * minCol;
     }
 };
