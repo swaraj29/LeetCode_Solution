@@ -1,22 +1,28 @@
 class Solution {
 public:
-    int sumOfEncryptedInt(vector<int>& nums) {
-        int n = nums.size();
-        int sum = 0;
-        string s;
-        for(int i = 0; i < nums.size();  i++){
-            string k = to_string(nums[i]);
-            sort(k.rbegin(),k.rend());
-            int p = k.size();
+    int en(int n){
 
-            while(p > 0){
-                s += k[0];
-                p--;
-            }
-            sum += stoi(s);
-            s.clear();
+        int a = 0;
+        int m = 0;
+        int c = 0;
+
+        while(n){
+            m = max(a, n % 10);
+            n = n/10;
+            c++;
+        }
+        int s = 0;
+        while(c){
+            s = s * 10 + m;
+            c--;
+        }
+        return s;
+    }
+    int sumOfEncryptedInt(vector<int>& nums) {
+        int sum = 0;
+        for(int i = 0; i < nums.size(); i++){
+            sum += en(nums[i]);
         }
         return sum;
-
     }
 };
