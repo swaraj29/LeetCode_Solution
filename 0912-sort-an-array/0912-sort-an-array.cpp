@@ -1,26 +1,55 @@
 class Solution {
+    void merge(vector<int>& nums, int left, int mid, int right) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+        
+        vector<int> L(n1);
+        vector<int> R(n2);
+        int k = left;
+
+        for (int i = 0; i < n1; i++)
+            L[i] = nums[k++];
+        for (int j = 0; j < n2; j++)
+            R[j] = nums[k++];
+
+        int i = 0, j = 0;
+        k = left;
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                nums[k] = L[i];
+                i++;
+            } else {
+                nums[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < n1) {
+            nums[k] = L[i];
+            i++;
+            k++;
+        }
+        while (j < n2) {
+            nums[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+    void mergeSort(vector<int>& nums, int left, int right) {
+        if (left >= right)
+            return;
+
+        int mid = left + (right - left) / 2;
+
+        mergeSort(nums, left, mid);
+        mergeSort(nums, mid + 1, right);
+
+        merge(nums, left, mid, right);
+    }    
 public:
     vector<int> sortArray(vector<int>& nums) {
-        unordered_map<int,int> mp;
-
-        for(auto &num :nums){
-            mp[num]++;
-        }
-
-        int minE = *min_element(nums.begin(),nums.end());
-        int maxE = *max_element(nums.begin(),nums.end());
-
-        int i = 0;
-
-        for(int num = minE; num <= maxE; num++){
-            while(mp[num] > 0){
-                nums[i] = num;
-                i++;
-                mp[num]--;
-            }
-        }
+        mergeSort(nums, 0, nums.size() - 1);
         return nums;
     }
 };
-
-// counting sort use karte hai jab input particular range me rahtaa hai
