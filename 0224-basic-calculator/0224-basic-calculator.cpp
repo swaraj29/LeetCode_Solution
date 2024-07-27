@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int calculate(std::string s) {
+    int calculate(string s) {
         stack<int> st;
         int n = s.size();
         int num = 0;
