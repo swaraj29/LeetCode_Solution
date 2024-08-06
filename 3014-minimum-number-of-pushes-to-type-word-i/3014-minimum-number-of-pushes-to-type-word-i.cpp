@@ -1,21 +1,20 @@
 class Solution {
 public:
     int minimumPushes(string word) {
-        int tp = 0;
-        for(int i = 0; i < word.size(); i++){
-            if(i < 8){
-                tp += 1;
+
+        int result = 0;
+        int assign_key = 2;
+        unordered_map<int,int> mp;
+        for(char &ch : word){
+
+            if(assign_key > 9){
+                assign_key = 2;
             }
-            else if(i >= 8 && i < 16){
-                tp += 2;
-            }
-            else if(i >= 16 && i < 24){
-                tp += 3;
-            }
-            else{
-                tp += 4;
-            }
+            mp[assign_key]++;
+            result += mp[assign_key];
+            assign_key++;
         }
-        return tp;
+        return result;
+
     }
 };
