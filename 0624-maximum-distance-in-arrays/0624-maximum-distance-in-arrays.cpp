@@ -1,20 +1,22 @@
 class Solution {
 public:
     int maxDistance(vector<vector<int>>& arrays) {
-        int MIN = arrays[0].front();
-        int MAX = arrays[0].back();
+        int n = arrays.size();
+        int maxDist = 0;
+        
+        int minVal = arrays[0].front();
+        int maxVal = arrays[0].back();
 
-        int result = 0;
-
-        for(int i = 1; i < arrays.size(); i++) {
+        for (int i = 1; i < n; ++i) {
             int currMin = arrays[i].front();
             int currMax = arrays[i].back();
 
-            result = max({result, abs(currMin - MAX), abs(currMax - MIN)});
+            maxDist = max({maxDist, abs(currMin - maxVal),abs(currMax-minVal)});
 
-            MAX = max(MAX, currMax);
-            MIN = min(MIN, currMin);
+            minVal = min(minVal, currMin);
+            maxVal = max(maxVal, currMax);
         }
-        return result;
+
+        return maxDist;
     }
 };
