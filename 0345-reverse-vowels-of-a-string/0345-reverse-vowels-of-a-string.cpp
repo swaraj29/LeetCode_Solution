@@ -1,31 +1,29 @@
 class Solution {
 public:
-    bool isVowel(char &ch) {
-        if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u'
-        || ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U'){
-            return true;
-        }
-        return false;
-    }
-
     string reverseVowels(string s) {
-        int n = s.length();
-        int i = 0;
-        int j = n - 1;
 
-        while(i < j) {
-            if(!isVowel(s[i])) {
-                i++;
-            }
-            else if(!isVowel(s[j])) {
-                j--;
-            }
-            else {
-                swap(s[i], s[j]);
-                i++;
-                j--;
-            }
+        int n = s.size();
+        vector<int> vec;
+        for(int i = 0; i < n; i++)
+        {
+            if(s[i] == 'a' || s[i] == 'e' || s[i] == 'i' || s[i] == 'o' ||
+            s[i] == 'u' || s[i] == 'A' || s[i] == 'E' || s[i] == 'I' ||
+            s[i] =='O' || s[i] == 'U')
+            {
+                vec.push_back(i);
+            } 
+        }
+        int j = 0; int k = vec.size() - 1;
+
+        while(j < k)
+        {
+            char c = s[vec[j]];
+            s[vec[j]] = s[vec[k]];
+            s[vec[k]] = c;
+            j++;
+            k--;
         }
         return s;
+        
     }
 };
