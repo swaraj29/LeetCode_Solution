@@ -1,33 +1,21 @@
 class Solution {
 public:
     string reverseWords(string s) {
+
+        // Create a stringstream object from the input string
+        stringstream ss(s);
+        string token = "";   // To store each word extracted from the string
+        string result = ""; // To build the final reversed string
         
-        int n = s.size();
-        string result = "";
-        string p = "";
-        
-        for(int i = n - 1; i >= 0; i--){
-            if(s[i] != ' '){
-                p += s[i];
-            } else if(!p.empty()) { // Only reverse and add p if it's not empty
-                reverse(p.begin(), p.end());
-                if(!result.empty()) {
-                    result += " "; // Add a space before the next word
-                }
-                result += p;
-                p = "";  // Reset p for the next word
-            }
+        // Extract words from the stringstream one by one
+        while (ss >> token) {
+            // Prepend the current word to the result
+            // Adding a space before appending the word, except for the first word
+            result = token + " " + result;
         }
         
-        // Reverse and add the last word (or only word if there's no space)
-        if(!p.empty()) {
-            reverse(p.begin(), p.end());
-            if(!result.empty()) {
-                result += " ";
-            }
-            result += p;
-        }
-        
-        return result;
+        // Remove the trailing space at the end of the result string
+        // `substr(0, result.size() - 1)` creates a substring without the last character
+        return result.substr(0, result.size() - 1);
     }
 };
