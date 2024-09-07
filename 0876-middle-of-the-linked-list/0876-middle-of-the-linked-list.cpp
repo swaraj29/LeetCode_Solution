@@ -11,22 +11,25 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
+        
+        int n = 0;
 
-        ListNode* curr = head;
-        int c = 0;
+        ListNode* temp = head;
 
-
-        while(curr != nullptr){
-            c++;
-            curr = curr->next;
+        // Count the number of nodes
+        while (temp != nullptr) {
+            temp = temp->next;
+            n++;
         }
-        c /=2;
+        
+        temp = head;
 
-        curr = head;
-
-        while(c--){
-            curr = curr -> next;
+        // Traverse to the middle node
+        for (int i = 0; i < n / 2; i++) {
+            temp = temp->next;
         }
-        return curr;   
+
+        // Return the middle node
+        return temp;
     }
 };
