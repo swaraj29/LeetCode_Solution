@@ -2,15 +2,27 @@ class Solution {
 public:
     int maxWidthRamp(vector<int>& nums) {
         int n = nums.size();
-        int maxWidth = 0;
+        vector<pair<int, int>> pairs(n);
+        
+        // Store the value and its index
         for (int i = 0; i < n; ++i) {
-            for (int j = n - 1; j > i; j--) {
-                if (nums[i] <= nums[j]) {
-                    maxWidth = max(maxWidth, j - i);
-                    break;
-                }
-            }
+            pairs[i] = {nums[i], i};
         }
+
+        // Sort based on the values
+        sort(pairs.begin(), pairs.end());
+
+        int maxWidth = 0;
+        int minIndex = pairs[0].second; // Start with the first index
+
+        // Traverse the sorted pairs
+        for (int j = 1; j < n; ++j) {
+            // Update the minimum index found so far
+            minIndex = min(minIndex, pairs[j].second);
+            // Calculate width
+            maxWidth = max(maxWidth, pairs[j].second - minIndex);
+        }
+
         return maxWidth;
     }
 };
