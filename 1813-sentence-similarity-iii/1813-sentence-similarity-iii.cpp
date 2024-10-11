@@ -1,36 +1,36 @@
 class Solution {
 public:
-    bool areSentencesSimilar(string sentence1, string sentence2) {
-        vector<string> vec1,vec2;
-
-        if(sentence2.size() > sentence1.size()){
-            swap(sentence1,sentence2);
-        }
-        stringstream ss1(sentence1), ss2(sentence2);
-        string word;
-
-        while(ss1 >> word){
-            vec1.push_back(word);
-        }
-        while(ss2 >> word){
-            vec2.push_back(word);
+    bool areSentencesSimilar(string s1, string s2) {
+        if(s1.length() < s2.length()) {
+            swap(s1, s2);
         }
 
-        int i = 0;
-        int j = vec2.size() - 1;
-        int k = vec1.size() - 1;
-        while(i < vec2.size() && vec1[i] == vec2[i]){
+        vector<string> vec1, vec2;
+        stringstream ss1(s1);
+        string token;
+        while(ss1 >> token) {
+            vec1.push_back(token);
+        }
+
+        stringstream ss2(s2);
+        while(ss2 >> token) {
+            vec2.push_back(token);
+        }
+
+        int i = 0, j = vec1.size()-1; //s1 (vec1)
+        int k = 0, l = vec2.size()-1; //s2 (vec2)
+
+        while(k < vec2.size() && i < vec1.size() && vec2[k] == vec1[i]) {
+            k++;
             i++;
         }
 
-        while(j > -1 && vec1[k] == vec2[j]){
-            k--;
+        while(l >= k && vec2[l] == vec1[j]) {
             j--;
+            l--;
         }
-
-        return i > j;
-
-
+        
+        return l < k;
 
     }
 };
