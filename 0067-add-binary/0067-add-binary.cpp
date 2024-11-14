@@ -1,20 +1,27 @@
 class Solution {
 public:
     string addBinary(string a, string b) {
-        int n = a.size() - 1;
-        int m = b.size() - 1;
-        int carry = 0;
-        string result = "";
 
-        while(n  >= 0 || m >= 0 || carry){
-            int p = n >= 0 ? a[n--] - '0' : 0;
-            int q = m >= 0 ? b[m--] - '0' : 0;
+    string ans;
+    int carry = 0;
+    int i = a.length() - 1;
+    int j = b.length() - 1;
 
-            int sum = p + q + carry;
-            char k = sum % 2 + '0';
-            result = k + result;
-            carry = sum / 2;
-        }
-        return result;
+    while (i >= 0 || j >= 0 || carry) {
+      if (i >= 0)
+        carry += a[i--] - '0';  // to convert into integer we subtract from 48//a[i] is string
+      if (j >= 0)
+        carry += b[j--] - '0';
+      ans += carry % 2 + '0'; // integer se string banana ke liya
+      carry /= 2;
+    }
+
+    reverse(begin(ans), end(ans));
+    return ans;
+
+
     }
 };
+
+
+//ascii value me 49 ko 1 bolte hai
