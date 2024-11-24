@@ -29,3 +29,7 @@ public:
         return maxRows;
     }
 };
+
+// pick each row
+// same rows
+// inverted rows
