@@ -8,10 +8,11 @@ public:
             int comp = target - nums[i];
 
             if(mp.find(comp) != mp.end()){
-                return {mp[comp],i};
+                return { mp[i],i };
             }
-
-            mp[nums[i]] = i;
+            else{
+                mp[nums[i]] = i;
+            }
         }
         return {};
     }
